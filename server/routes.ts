@@ -89,6 +89,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to fetch sessions" });
     }
   });
+  
+  // Delete a message by ID
+  apiRouter.delete("/messages/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const messageId = parseInt(id, 10);
+      
+      if (isNaN(messageId)) {
+        return res.status(400).json({ message: "Invalid message ID" });
+      }
+      
+      const success = await storage.deleteMessage(messageId);
+      
+      if (success) {
+        res.status(204).send();
+      } else {
+        res.status(404).json({ message: "Message not found" });
+      }
+    } catch (error) {
+      console.error("Error deleting message:", error);
+      res.status(500).json({ message: "Failed to delete message" });
+    }
+  });
 
   // Register API routes
   app.use("/api", apiRouter);

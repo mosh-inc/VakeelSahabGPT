@@ -8,6 +8,7 @@ export interface IStorage {
   // Message related methods
   getMessages(sessionId: string): Promise<Message[]>;
   createMessage(message: InsertMessage): Promise<Message>;
+  deleteMessage(id: number): Promise<boolean>;
   getSessionIds(): Promise<string[]>;
 }
 
@@ -62,6 +63,25 @@ export class MemStorage implements IStorage {
     return message;
   }
 
+  async deleteMessage(id: number): Promise<boolean> {
+    // Search through all sessions for the message with the given id
+    for (const [sessionId, messages] of this.messagesMap.entries()) {
+      const index = messages.findIndex(msg => msg.id === id);
+      
+      if (index !== -1) {
+        // Remove the message from the array
+        messages.splice(index, 1);
+        
+        // Update the messages map
+        this.messagesMap.set(sessionId, messages);
+        
+        return true;
+      }
+    }
+    
+    return false;
+  }
+  
   async getSessionIds(): Promise<string[]> {
     return Array.from(this.messagesMap.keys());
   }
