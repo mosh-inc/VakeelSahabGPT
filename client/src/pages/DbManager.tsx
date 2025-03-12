@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,7 +28,7 @@ export default function DbManager() {
   // Fetch messages for a session
   const fetchMessages = async (sessionId: string) => {
     if (!sessionId) return;
-    
+
     try {
       const response = await fetch(`/api/messages/${sessionId}`);
       const data = await response.json();
@@ -43,13 +42,37 @@ export default function DbManager() {
     }
   };
 
-  // Delete a message (this would require adding a new endpoint)
+  // Delete a message
   const deleteMessage = async (messageId: number) => {
-    // This functionality would require adding a new endpoint to your API
-    toast({
-      title: "Info",
-      description: "Delete functionality requires adding a new API endpoint",
-    });
+    try {
+      const response = await fetch(`/api/messages/${messageId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.status === 204) {
+        toast({
+          title: "Success",
+          description: "Message deleted successfully",
+        });
+
+        // Refresh messages after deletion
+        if (selectedSession) {
+          fetchMessages(selectedSession);
+        }
+      } else {
+        toast({
+          title: "Error",
+          description: "Failed to delete message",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete message",
+        variant: "destructive",
+      });
+    }
   };
 
   useEffect(() => {
@@ -65,7 +88,7 @@ export default function DbManager() {
   return (
     <div className="container py-8">
       <h1 className="text-3xl font-bold mb-6">Database Manager</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="col-span-1">
           <CardHeader>
@@ -79,7 +102,7 @@ export default function DbManager() {
             >
               Refresh Sessions
             </Button>
-            
+
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
               {sessions.length > 0 ? (
                 sessions.map((session) => (
@@ -98,7 +121,7 @@ export default function DbManager() {
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="col-span-1 md:col-span-2">
           <CardHeader>
             <CardTitle>Messages</CardTitle>
@@ -118,7 +141,7 @@ export default function DbManager() {
                     Refresh
                   </Button>
                 </div>
-                
+
                 <div className="space-y-4 max-h-[500px] overflow-y-auto">
                   {messages.length > 0 ? (
                     messages.map((message) => (
