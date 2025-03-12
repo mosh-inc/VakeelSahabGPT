@@ -50,10 +50,13 @@ export class MemStorage implements IStorage {
     const id = this.currentMessageId++;
     const now = new Date();
     
+    // Ensure all required properties are set with proper defaults
     const message: Message = { 
       ...insertMessage, 
       id, 
-      createdAt: now
+      createdAt: now,
+      category: insertMessage.category || null,
+      sources: insertMessage.sources || null
     };
     
     const sessionMessages = this.messagesMap.get(message.sessionId) || [];
@@ -65,8 +68,9 @@ export class MemStorage implements IStorage {
 
   async deleteMessage(id: number): Promise<boolean> {
     // Search through all sessions for the message with the given id
-    for (const [sessionId, messages] of this.messagesMap.entries()) {
-      const index = messages.findIndex(msg => msg.id === id);
+    for (const sessionId of this.messagesMap.keys()) {
+      const messages = this.messagesMap.get(sessionId) || [];
+      const index = messages.findIndex((msg: Message) => msg.id === id);
       
       if (index !== -1) {
         // Remove the message from the array

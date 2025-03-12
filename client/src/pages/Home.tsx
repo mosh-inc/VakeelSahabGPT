@@ -60,7 +60,7 @@ export default function Home() {
         {
           id: 0,
           sessionId,
-          content: "Welcome to Vakeel Sahab GPT. I'm here to help with legal information across various topics including contracts, family law, employment, property, and intellectual property. How can I assist you today?",
+          content: "**Assalamu Alaikum!** 👋\n\nWelcome to Vakeel Sahab GPT, your AI-powered legal assistant. I'm designed to provide information on Pakistani and international legal topics including:\n\n- Contract law and agreement reviews\n- Family law matters including marriage, divorce, and inheritance\n- Employment and labor regulations\n- Property laws and documentation\n- Intellectual property protection\n\nHow may I assist you with your legal questions today?",
           role: 'assistant',
           category: null,
           sources: null,
