@@ -38,16 +38,16 @@ export default function MessageInput({ onSendMessage, disabled = false }: Messag
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-3">
+    <div className="bg-white rounded-xl border border-neutral-200 p-2 mx-auto max-w-4xl">
       <form onSubmit={handleSubmit} className="flex items-end space-x-2">
         <div className="flex-1 relative">
           <Textarea
             ref={textareaRef}
             value={message}
             onChange={handleInputChange}
-            placeholder="Type your legal question..."
-            className="w-full border border-neutral-300 rounded-lg px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent min-h-[50px]"
-            rows={2}
+            placeholder="Message Vakeel Sahab GPT..."
+            className="w-full border border-neutral-200 rounded-xl px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary/30 min-h-[50px] text-neutral-800 placeholder:text-neutral-500"
+            rows={1}
             disabled={disabled}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -56,27 +56,42 @@ export default function MessageInput({ onSendMessage, disabled = false }: Messag
               }
             }}
           />
-          <button 
-            type="button" 
-            className="absolute right-3 bottom-3 text-neutral-400 hover:text-neutral-600" 
-            aria-label="Attach file"
-            disabled={disabled}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
-            </svg>
-          </button>
+          <div className="absolute right-3 bottom-3 flex space-x-1">
+            <button 
+              type="button" 
+              className="text-neutral-400 hover:text-neutral-600 p-1 rounded-full hover:bg-neutral-100" 
+              aria-label="More options"
+              disabled={disabled}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+              </svg>
+            </button>
+          </div>
         </div>
         <Button 
           type="submit" 
-          className="bg-secondary hover:bg-secondary-dark text-white rounded-lg px-4 py-3 h-12 flex items-center justify-center shadow-sm"
+          className="rounded-full p-2 w-10 h-10 flex items-center justify-center"
+          variant="ghost"
           disabled={disabled || !message.trim()}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="20" 
+            height="20" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className={`${message.trim() ? 'text-primary' : 'text-neutral-400'}`}
+          >
+            <path d="M22 2L11 13"></path>
+            <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
           </svg>
-          <span>Send</span>
         </Button>
       </form>
     </div>
