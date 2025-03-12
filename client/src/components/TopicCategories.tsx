@@ -32,15 +32,16 @@ export default function TopicCategories({
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-6">
+      <h2 className="text-sm font-medium text-neutral-600 mb-3 ml-1">Topics</h2>
       <ScrollArea className="w-full whitespace-nowrap">
         <div className="flex space-x-2 pb-2">
           <Button
-            variant={selectedCategory === "all" ? "default" : "outline"}
-            className={`rounded-full ${
+            variant="ghost"
+            className={`rounded-full text-sm h-9 px-4 font-medium ${
               selectedCategory === "all"
-                ? "bg-primary text-white"
-                : "bg-white text-neutral-700"
+                ? "bg-primary/10 text-primary hover:bg-primary/15"
+                : "bg-transparent text-neutral-700 hover:bg-neutral-100"
             }`}
             onClick={() => handleCategorySelect("all")}
           >
@@ -50,11 +51,11 @@ export default function TopicCategories({
           {categories.map((category) => (
             <Button
               key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              className={`rounded-full ${
+              variant="ghost"
+              className={`rounded-full text-sm h-9 px-4 font-medium ${
                 selectedCategory === category
-                  ? "bg-primary text-white"
-                  : "bg-white text-neutral-700"
+                  ? "bg-primary/10 text-primary hover:bg-primary/15"
+                  : "bg-transparent text-neutral-700 hover:bg-neutral-100"
               }`}
               onClick={() => handleCategorySelect(category)}
             >
@@ -62,7 +63,7 @@ export default function TopicCategories({
             </Button>
           ))}
         </div>
-        <ScrollBar orientation="horizontal" />
+        <ScrollBar orientation="horizontal" className="h-2" />
       </ScrollArea>
     </div>
   );

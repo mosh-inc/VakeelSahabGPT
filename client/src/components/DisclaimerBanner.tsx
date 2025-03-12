@@ -3,12 +3,13 @@ import { AlertTriangle } from "lucide-react";
 
 export default function DisclaimerBanner() {
   return (
-    <Alert className="bg-[#dd6b20]/10 border-l-4 border-[#dd6b20] text-[#dd6b20] rounded-none">
-      <div className="container mx-auto flex items-start">
-        <AlertTriangle className="h-5 w-5 mr-2 mt-0.5" />
+    <Alert className="bg-neutral-100 border border-neutral-200 text-neutral-700 rounded-lg mb-6">
+      <div className="flex items-start">
+        <AlertTriangle className="h-5 w-5 mr-3 text-orange-500 flex-shrink-0 mt-0.5" />
         <AlertDescription className="text-sm">
-          <strong>Important:</strong> LegalAssist AI provides information based on trained data and not legal advice. 
-          Always consult a qualified attorney for legal matters.
+          <span className="font-semibold block mb-1">Vakeel Sahab GPT is not a substitute for professional legal advice</span>
+          Information provided is based on AI training data and should not be considered legal advice. 
+          Always consult a qualified attorney for specific legal matters.
         </AlertDescription>
       </div>
     </Alert>
