@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@5
-  evals: circleci/evals@2.0
+  evals: circleci/evals@2.0.1
 jobs:
   build-node:
     executor: node/default
@@ -16,8 +16,7 @@ jobs:
           command: mkdir -p ~/artifacts
       - run:
           name: Copy artifacts
-          command: cp -R build dist public .output .next .docusaurus ~/artifacts
-            2>/dev/null || true
+          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
       - store_artifacts:
           path: ~/artifacts
           destination: node-build
